@@ -41,14 +41,18 @@ h4 {
 	font-size: 12px;
 	width: 100%;
 	background-color: rgb(31, 54, 83);
-	color:  rgb(122, 167, 122);
+	color:  #f7f7f7;
 	vertical-align: middle;
 	padding: 5px 20px;
 	margin-left: -20px;
+	letter-spacing: 0.25px;
 }
 
-#divider {
-	padding: 5px 0px;
+#divider1 {
+	padding-bottom: 20px;
+}
+#divider2 {
+	padding-bottom: 10px;
 }
 
 #reset {
@@ -61,6 +65,8 @@ h4 {
 	outline: none;
 	width: 50px;
 	text-align: center;
+	font-size: 12px;
+	font-weight: 500;
 	cursor: pointer;
 	&:hover {
 		background-color: rgb(122, 167, 122);
@@ -104,4 +110,21 @@ h4 {
 	&:active {
 		background-color: rgb(228, 158, 145);
 	}
+}
+
+.x {
+	display: flex;
+	align-content: center;
+	color: tomato;
+	font-size: 80px;
+	font-weight: 600;
+	padding-bottom: 25px;
+}
+.o {
+	color: rgb(31, 54, 83);
+	font-size: 90px;
+	font-weight: 500;
+	vertical-align: top;
+	text-anchor: start;
+	padding-bottom: 25px;
 }
