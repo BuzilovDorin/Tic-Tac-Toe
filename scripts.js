@@ -1,4 +1,16 @@
 $(document).click(function (e) {
+    if ($(e.target).attr("id") == "head") {
+        var soundbyte = document.createElement("audio")
+        soundbyte.src = "/Assets/click1.mp3"
+        soundbyte.play()
+        remvCoinflip()
+    }
+    else if ($(e.target).attr("id") == "tails") {
+        var soundbyte = document.createElement("audio")
+        soundbyte.src = "/Assets/click2.mp3"
+        soundbyte.play()
+        remvCoinflip()
+    }
     if ($(e.target).attr("id") == "reset") {
         $("li").empty()
         $("li").removeClass()
@@ -6,6 +18,9 @@ $(document).click(function (e) {
         var soundbyte = document.createElement("audio")
         soundbyte.src = "/Assets/reset.mp3"
         soundbyte.play()
+        if (!$("#coinflip").length) {
+            addCoinflip()
+        }
     }
     else if ($(e.target).attr("class") != "none") {
         return false
@@ -18,3 +33,11 @@ $(document).click(function (e) {
         soundbyte.play()
     }
 })
+
+function remvCoinflip() {
+    $("#coinflip").remove()
+}
+
+function addCoinflip() {
+    $('#centered').append('<div id="coinflip"><div id="chooseflip">Choose Head or Tails</div><div id="chooseflip_descript">~ Winner makes first move ~</div><div id="head">Head</div><div id="tails">Tails</div></div>')
+}

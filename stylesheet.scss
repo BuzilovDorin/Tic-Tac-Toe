@@ -112,6 +112,82 @@ h4 {
 	}
 }
 
+
+#coinflip {
+	position: absolute;
+	left: 20px;
+	top: 145px;
+	height: 300px;
+	width: 300px;
+	background-color: #1f3653;
+	box-shadow: 0 4px 8px 0 rgba(0, 0.3, 0, 0.3), 0 5px 10px 0 rgba(0, 0.3, 0, 0.3);	
+}
+
+#chooseflip {
+	position: relative;
+	color: #f7f7f7;
+	left: 50px;
+	top: 15%;
+	font-size: 20px;
+	font-weight: 600;
+	}
+
+	#chooseflip_descript {
+	position: relative;
+	color: #f7f7f7;
+	left: 70px;
+	top: 20%;
+	font-size: 12px;
+	}
+
+	#head {
+	position: absolute;
+	left: 30px;
+	top: 150px;
+	width: 80px;
+	height: 80px;
+	background-color: #f7f7f7;
+	color: #1f3653;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 2px 5px 0 rgba(0, 0, 0, 0.3);	
+	border-radius: 50%;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 75px;
+	cursor: pointer;
+	&:hover {
+		background-color:  rgb(122, 167, 122);
+		color: #f7f7f7;
+	}
+	&:active {
+		background-color:  rgb(84, 148, 84);
+	}
+}
+
+#tails {
+	position: absolute;
+	left: 180px;
+	top: 150px;
+	width: 80px;
+	height: 80px;
+	background-color: #f7f7f7;
+	color: #1f3653;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 2px 5px 0 rgba(0, 0, 0, 0.3);	
+	border-radius: 50%;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+	line-height: 75px;
+	cursor: pointer;
+	&:hover {
+		background-color:  rgb(122, 167, 122);
+		color: #f7f7f7;
+	}
+	&:active {
+		background-color:  rgb(84, 148, 84);
+	}
+}
+
 .x {
 	display: flex;
 	align-content: center;
