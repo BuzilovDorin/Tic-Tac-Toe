@@ -81,6 +81,14 @@ h4 {
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 -2px -5px 0 rgba(0, 0, 0, 0.1);
 }
 
+#cfResult {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: chocolate;
+  background-color: cornflowerblue;
+}
+
 #centered {
   position: fixed;
   top: 50%;
@@ -151,7 +159,7 @@ h4 {
 
 #chooseflip_descript {
   position: relative;
-  color: #f7f7f7;
+  color: #549454;
   left: 70px;
   top: 20%;
   font-size: 12px;

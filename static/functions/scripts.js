@@ -1,13 +1,13 @@
 $(document).click(function (e) {
     if ($(e.target).attr("id") == "head") {
         var soundbyte = document.createElement("audio")
-        soundbyte.src = "/Assets/click1.mp3"
+        soundbyte.src = "/static/Assets/click1.mp3"
         soundbyte.play()
         remvCoinflip()
     }
     else if ($(e.target).attr("id") == "tails") {
         var soundbyte = document.createElement("audio")
-        soundbyte.src = "/Assets/click2.mp3"
+        soundbyte.src = "/static/Assets/click2.mp3"
         soundbyte.play()
         remvCoinflip()
     }
@@ -16,7 +16,7 @@ $(document).click(function (e) {
         $("li").removeClass()
         $("li").addClass('none')
         var soundbyte = document.createElement("audio")
-        soundbyte.src = "/Assets/reset.mp3"
+        soundbyte.src = "/static/Assets/click2.mp3"
         soundbyte.play()
         if (!$("#coinflip").length) {
             addCoinflip()
@@ -29,7 +29,7 @@ $(document).click(function (e) {
         $(e.target).append('x')
         $(e.target).toggleClass("none x")
         var soundbyte = document.createElement("audio")
-        soundbyte.src = "/Assets/click1.mp3"
+        soundbyte.src = "/static/Assets/click1.mp3"
         soundbyte.play()
     }
 })
