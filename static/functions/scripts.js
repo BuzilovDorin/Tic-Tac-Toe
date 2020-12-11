@@ -68,10 +68,11 @@ function AIturn() {
         type: "POST",
         async: false,
         contentType: "application/json",
-        dataType: "json",
         data: arr,
         success: function (response) {
-            console.log("########## YAAAAAYYY")
+            if (response == true) {
+                console.log("########## YAAAAAYYY")
+            }
         }
     })
 }
