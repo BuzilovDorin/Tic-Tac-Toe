@@ -71,7 +71,7 @@ function AIturn() {
         data: arr,
         success: function (response) {
             if (response == true) {
-                console.log("########## YAAAAAYYY")
+                console.log("########## AI turn was successful")
             }
         }
     })
