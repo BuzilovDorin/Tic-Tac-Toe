@@ -77,13 +77,13 @@ h4 {
 	}
 }
 
-#cfResult {
-	position: absolute;
-	top: 0;
-	left: 0;
-	color: chocolate;
-	background-color: cornflowerblue;
-}
+#cfResult.win {
+	display: inline;
+	font-size: 16px;
+	font-weight: 500;
+	color: #549454;
+	padding-left: 10px;
+  }
 
 #centered {
 	position: fixed;

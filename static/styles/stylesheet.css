@@ -69,6 +69,7 @@ h4 {
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
+  display: inline;
 }
 
 #reset:hover {
@@ -81,12 +82,20 @@ h4 {
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 -2px -5px 0 rgba(0, 0, 0, 0.1);
 }
 
-#cfResult {
-  position: absolute;
-  top: 0;
-  left: 0;
-  color: chocolate;
-  background-color: cornflowerblue;
+#cfResult.win {
+  display: inline;
+  font-size: 16px;
+  font-weight: 500;
+  color: #549454;
+  padding-left: 10px;
+}
+
+#cfResult.lose {
+  display: inline;
+  font-size: 16px;
+  font-weight: 500;
+  color: tomato;
+  padding-left: 10px;
 }
 
 #centered {
