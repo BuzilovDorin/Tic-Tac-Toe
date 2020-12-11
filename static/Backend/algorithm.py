@@ -11,4 +11,6 @@ def coinToss(Value):
         return False
 
 
-# 3x3 Tic-Tac-Toe Grid
+# AI logic & processing
+def calcNextMove(curBoard):
+    return True
