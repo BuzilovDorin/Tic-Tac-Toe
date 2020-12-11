@@ -18,14 +18,8 @@ def main():
 
 
 # Route for CoinToss
-@app.route("/test", methods=['GET', "POST"])
-def test():
-    if request.method == "GET":
-        data = {"picked": "1"}
-        j = json.dumps(data)
-        print("######################")
-        return jsonify(j)
-
+@app.route("/coinToss", methods=["POST"])
+def toss():
     if request.method == "POST":
         incomDATA = request.data
         s = int(''.join(filter(str.isdigit, str(incomDATA))))
@@ -33,12 +27,15 @@ def test():
         return jsonify(v)
 
 
-# Route for CoinToss
-@ app.route("/flipCoin", methods=['POST'])
-def flipCoin():
-    v = request.args.get('data')
-    print(v)
-    return coinToss(v)
+# Route for AI Next Move
+@app.route("/AITurn", methods=["POST"])
+def logic():
+    if request.method == "POST":
+        decodedData = (request.data).decode('utf-8')
+        obj = json.loads(decodedData)
+        currGrid = list(obj.items())[:9]
+        print(currGrid)
+        return True
 
 
 if __name__ == "__main__":

@@ -68,6 +68,7 @@ h4 {
 	font-size: 12px;
 	font-weight: 500;
 	cursor: pointer;
+	display: inline;
 	&:hover {
 		background-color: rgb(122, 167, 122);
 	}
@@ -82,6 +83,14 @@ h4 {
 	font-size: 16px;
 	font-weight: 500;
 	color: #549454;
+	padding-left: 10px;
+  }
+  
+  #cfResult.lose {
+	display: inline;
+	font-size: 16px;
+	font-weight: 500;
+	color: rgb(197, 73, 52);
 	padding-left: 10px;
   }
 

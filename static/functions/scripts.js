@@ -1,23 +1,24 @@
 $(document).click(function (e) {
     if ($(e.target).attr("id") == "head") {
-        var tossVal = $(e.target).attr('value')
-        passCoinToss(tossVal)
-
+        passCoinToss($(e.target).attr('value'))
         var soundbyte = document.createElement("audio")
         soundbyte.src = "/static/Assets/click1.mp3"
         soundbyte.play()
         remvCoinflip()
     }
     else if ($(e.target).attr("id") == "tails") {
+        passCoinToss($(e.target).attr('value'))
         var soundbyte = document.createElement("audio")
         soundbyte.src = "/static/Assets/click2.mp3"
         soundbyte.play()
         remvCoinflip()
     }
     if ($(e.target).attr("id") == "reset") {
+        AIturn()
         $("li").empty()
         $("li").removeClass()
         $("li").addClass('none')
+        $('#cfResult').empty().removeClass()
         var soundbyte = document.createElement("audio")
         soundbyte.src = "/static/Assets/click2.mp3"
         soundbyte.play()
@@ -39,18 +40,38 @@ $(document).click(function (e) {
 
 function passCoinToss(Value) {
     $.ajax({
-        url: "/test",
+        url: "/coinToss",
         type: "POST",
         async: false,
         contentType: "application/json",
         data: { picked: Value },
         success: function (response) {
             if (response == true) {
-                alert(response)
+                $('#cfResult').addClass('win').append('You won the coin toss!')
             }
             else {
-                alert("Not true")
+                $('#cfResult').addClass('lose').append('You lost the coin toss!')
             }
+        }
+    })
+}
+
+function AIturn() {
+    var currGrid = []
+    currGrid = $("#gridContainer").children('#Cell').map(function () {
+        return $(this).attr("class");
+    });
+    arr = JSON.stringify(currGrid)
+    console.log(arr)
+    $.ajax({
+        url: "/AITurn",
+        type: "POST",
+        async: false,
+        contentType: "application/json",
+        dataType: "json",
+        data: arr,
+        success: function (response) {
+            console.log("########## YAAAAAYYY")
         }
     })
 }
