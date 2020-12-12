@@ -71,17 +71,26 @@ function AIturn() {
         contentType: "application/json",
         data: arr,
         success: function (response) {
-            if (response == "xWin") {
-                console.log("~> Player Has WON!!! <~")
-            }
             if (response == "yWin") {
-                console.log("# AI Has WON!!! #")
+                var soundbyte = document.createElement("audio")
+                soundbyte.src = "/static/Assets/lose.mp3"
+                soundbyte.play()
+                alert("# AI Has WON!!! #")
+            }
+            if (response == "xWin") {
+                var soundbyte = document.createElement("audio")
+                soundbyte.src = "/static/Assets/win.mp3"
+                soundbyte.play()
+                alert("$ You Have WON!!! $")
             }
             if (response == "draw") {
-                console.log("<~ DRAW ~>")
+                var soundbyte = document.createElement("audio")
+                soundbyte.src = "/static/Assets/draw.mp3"
+                soundbyte.play()
+                alert("~ DRAW ~")
             }
-            if (response == "Cell location") {
-                // put "o" in cell location
+            if (response == "0" || "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8") {
+                $("#gridContainer").children('#Cell').eq(response).removeClass().addClass("o").append("o")
             }
         }
     })
