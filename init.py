@@ -43,7 +43,7 @@ def logic():
         obj = json.loads(decodedData)
         currGrid = [*obj.values()][:9]
         # Passing through the current board state to the backend AI logic
-        a = calcNextMove(maxMin, currGrid)
+        a = calcNextMove(maxMin, currGrid, maxMin)
         return jsonify(a)
 
 

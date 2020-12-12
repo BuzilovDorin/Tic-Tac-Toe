@@ -53,21 +53,24 @@ def checkWinCond(currentBoard):
         return yWin
 
 
-def calcNextMove(maxOrMin, curBoard):
+def calcNextMove(maxOrMin, curBoard, MaxMin):
     # next AI Move
     bestScore = -math.inf
-    nextMove = None
+    nextMove = 0
     i = 0
     for n in curBoard:
         if n == "none":
             curBoard[i] = "o"
-            mMScore = miniMax(curBoard, 0, True)
+            mMScore = miniMax(curBoard, 0, MaxMin)
             curBoard[i] = "none"
-            bestScore = max(mMScore, bestScore)
-            nextMove = i
+            if mMScore > bestScore:
+                bestScore = mMScore
+                nextMove = i
+                print("iiii::::", i)
             i += 1
         else:
             i += 1
+            pass
     return nextMove
 
 
@@ -80,19 +83,19 @@ scores = {
 
 # miniMax Algorithm
 def miniMax(currBoard, depth, MinOrMax):
-    print(depth)
     # Check if AI has won
     result = checkWinCond(currBoard)
     if result != None:
+        print("....", scores[result])
         return scores[result]
 
-    if MinOrMax:
+    if MinOrMax == True:
         bestScore = -math.inf
         i = 0
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "o"
-                score = miniMax(currBoard, depth + 1, MinOrMax)
+                score = miniMax(currBoard, depth + 1, not MinOrMax)
                 currBoard[i] = "none"
                 bestScore = max(score, bestScore)
             i += 1
