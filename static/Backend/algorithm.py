@@ -22,35 +22,33 @@ def checkWinCond(currentBoard):
     draw = "draw"
     index = 0
     for row in currentBoard[::3]:
-        if row == "x":
-            if currentBoard[index + 1] == "x" and currentBoard[index + 2] == "x":
-                return xWin
-        if row == "o":
-            if currentBoard[index + 1] == "o" and currentBoard[index + 2] == "o":
-                return yWin
+        if currentBoard[index] == "x" and currentBoard[index] == currentBoard[index + 1] and currentBoard[index + 1] == currentBoard[index + 2]:
+            return xWin
+        elif currentBoard[index] == "o" and currentBoard[index] == currentBoard[index + 1] and currentBoard[index + 1] == currentBoard[index + 2]:
+            return yWin
         index += 3
     # Checking Columns
     index = 0
     for colm in currentBoard[:3]:
-        if colm == "x":
-            if currentBoard[index + 3] == "x" and currentBoard[index + 6] == "x":
-                return xWin
-        if colm == "o":
-            if currentBoard[index + 3] == "o" and currentBoard[index + 6] == "o":
-                return yWin
+        if currentBoard[index] == "x" and currentBoard[index] == currentBoard[index + 3] and currentBoard[index + 3] == currentBoard[index + 6]:
+            return xWin
+        if currentBoard[index] == "o" and currentBoard[index] == currentBoard[index + 3] and currentBoard[index + 3] == currentBoard[index + 6]:
+            return yWin
         index += 1
     # Checking Diagonal [0]-->[4]-->[8]
     if currentBoard[0] == "x" and currentBoard[4] == "x" and currentBoard[8] == "x":
         return xWin
     if currentBoard[0] == "o" and currentBoard[4] == "o" and currentBoard[8] == "o":
         return yWin
-    # Checking Diagonal [2]-->[4]-->[8]
+    # Checking Diagonal [2]-->[4]-->[6]
     if currentBoard[2] == "x" and currentBoard[4] == "x" and currentBoard[6] == "x":
         return xWin
     if currentBoard[2] == "o" and currentBoard[4] == "o" and currentBoard[6] == "o":
         return yWin
     if "none" not in currentBoard:
         return draw
+    else:
+        return None
 
 
 def calcNextMove(curBoard, depth, MaxMin):
@@ -61,7 +59,8 @@ def calcNextMove(curBoard, depth, MaxMin):
     for n in curBoard:
         if n == "none":
             curBoard[i] = "o"
-            mMScore = miniMax(curBoard, 0, True)
+            mMScore = miniMax(curBoard, depth, MaxMin)
+            print("Depth:", depth, "[Nth Number:]", i, "___", mMScore)
             curBoard[i] = "none"
             if mMScore > bestScore:
                 bestScore = mMScore
@@ -69,41 +68,48 @@ def calcNextMove(curBoard, depth, MaxMin):
             i += 1
         else:
             i += 1
+            print("skipped")
     return nextMove
 
 
 scores = {
-    "xWin": 10,
-    "yWin": -10,
+    "xWin": 1,
+    "yWin": -1,
     "draw": 0
 }
 
 
 # miniMax Algorithm
 def miniMax(currBoard, depth, MinOrMax):
+    # if(depth <= 1):
+    #     print(currBoard)
     # Check if AI has won
     result = checkWinCond(currBoard)
     if result != None:
         return scores[result]
 
     if MinOrMax == True:
+        MinOrMax = not MinOrMax
         bestScore = -math.inf
         i = 0
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "o"
-                score = miniMax(currBoard, depth + 1, False)
+                score = miniMax(currBoard, depth + 1, MinOrMax)
                 currBoard[i] = "none"
                 bestScore = max(score, bestScore)
             i += 1
         return bestScore
     else:
+        print(MinOrMax)
+        MinOrMax = not MinOrMax
+        print(MinOrMax)
         bestScore = math.inf
         i = 0
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "x"
-                score = miniMax(currBoard, depth + 1, True)
+                score = miniMax(currBoard, depth + 1, MinOrMax)
                 currBoard[i] = "none"
                 bestScore = min(score, bestScore)
             i += 1
