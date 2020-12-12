@@ -35,7 +35,7 @@ def logic():
         decodedData = (request.data).decode('utf-8')
         obj = json.loads(decodedData)
         currGrid = [*obj.values()][:9]
-
+        print(currGrid)
         # Passing through the current board state to the backend AI logic
         return jsonify(calcNextMove(currGrid))
 
