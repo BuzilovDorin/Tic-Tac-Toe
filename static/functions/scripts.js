@@ -35,6 +35,7 @@ $(document).click(function (e) {
         soundbyte.src = "/static/Assets/click1.mp3"
         soundbyte.play()
 
+        // Following Player Move, AI makes next move
         AIturn()
     }
 })
@@ -78,6 +79,9 @@ function AIturn() {
             }
             if (response == "draw") {
                 console.log("<~ DRAW ~>")
+            }
+            if (response == "Cell location") {
+                // put "o" in cell location
             }
         }
     })

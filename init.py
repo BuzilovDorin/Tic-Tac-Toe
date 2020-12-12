@@ -6,6 +6,11 @@ from flask_cors import CORS, cross_origin
 import os
 import json
 
+# Global Variables
+# True = Player Max (first move)
+# False = AI Max (first move)
+maxMin = True
+
 # Declaring the app
 app = Flask(__name__)
 cors = CORS(app)
@@ -24,6 +29,8 @@ def toss():
         incomDATA = request.data
         s = int(''.join(filter(str.isdigit, str(incomDATA))))
         v = coinToss(s)
+        global maxMin
+        maxMin = v
         return jsonify(v)
 
 
@@ -35,9 +42,8 @@ def logic():
         decodedData = (request.data).decode('utf-8')
         obj = json.loads(decodedData)
         currGrid = [*obj.values()][:9]
-        print(currGrid)
         # Passing through the current board state to the backend AI logic
-        return jsonify(calcNextMove(currGrid))
+        return jsonify(calcNextMove(maxMin, currGrid))
 
 
 if __name__ == "__main__":

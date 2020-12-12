@@ -1,7 +1,8 @@
 import random
 
-
 # coinToss determines who goes first
+
+
 def coinToss(Value):
     randToss = random.randint(0, 1)
 
@@ -52,20 +53,19 @@ def checkWinCond(currentBoard):
         return yWin
 
 
-def calcNextMove(curBoard):
+def calcNextMove(maxOrMin, curBoard):
     # Check if human Player has won
     winner = checkWinCond(curBoard)
     if winner:
-        print("Player win: ", winner)
         return winner
 
-    # AI logic & processing
     else:
-        return True
+        # AI logic & processing
+        print(maxOrMin)
         xPos = [i for i, e in enumerate(curBoard) if e == "x"]
         print("Current X Pos: ", xPos)
 
+        # Check if AI has won
         winner = checkWinCond(curBoard)
         if winner:
-            print("#AI win:", winner)
             return winner
