@@ -14,7 +14,6 @@ $(document).click(function (e) {
         remvCoinflip()
     }
     if ($(e.target).attr("id") == "reset") {
-        AIturn()
         $("li").empty()
         $("li").removeClass()
         $("li").addClass('none')
@@ -35,6 +34,8 @@ $(document).click(function (e) {
         var soundbyte = document.createElement("audio")
         soundbyte.src = "/static/Assets/click1.mp3"
         soundbyte.play()
+
+        AIturn()
     }
 })
 
@@ -62,7 +63,6 @@ function AIturn() {
         return $(this).attr("class");
     });
     arr = JSON.stringify(currGrid)
-    console.log(arr)
     $.ajax({
         url: "/AITurn",
         type: "POST",
@@ -70,8 +70,14 @@ function AIturn() {
         contentType: "application/json",
         data: arr,
         success: function (response) {
-            if (response == true) {
-                console.log("########## AI turn was successful")
+            if (response == "xWin") {
+                console.log("~> Player Has WON!!! <~")
+            }
+            if (response == "yWin") {
+                console.log("# AI Has WON!!! #")
+            }
+            if (response == "draw") {
+                console.log("<~ DRAW ~>")
             }
         }
     })

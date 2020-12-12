@@ -18,42 +18,54 @@ def checkWinCond(currentBoard):
     # Checking rows
     xWin = "xWin"
     yWin = "yWin"
+    draw = "draw"
+    index = 0
+    if "none" not in currentBoard:
+        return draw
     for row in currentBoard[::3]:
         if row == "x":
-            if currentBoard[1] and currentBoard[2] == "x":
+            if currentBoard[index + 1] == "x" and currentBoard[index + 2] == "x":
                 return xWin
         if row == "o":
-            if currentBoard[1] and currentBoard[2] == "o":
+            if currentBoard[index + 1] == "o" and currentBoard[index + 2] == "o":
                 return yWin
+        index += 3
     # Checking Columns
+    index = 0
     for colm in currentBoard[:3]:
         if colm == "x":
-            if currentBoard[3] and currentBoard[6] == "x":
+            if currentBoard[index + 3] == "x" and currentBoard[index + 6] == "x":
                 return xWin
         if colm == "o":
-            if currentBoard[3] and currentBoard[6] == "o":
+            if currentBoard[index + 3] == "o" and currentBoard[index + 6] == "o":
                 return yWin
+        index += 1
     # Checking Diagonal [0]-->[4]-->[8]
-    if currentBoard[0] and currentBoard[4] and currentBoard[8] == "x":
+    if currentBoard[0] == "x" and currentBoard[4] == "x" and currentBoard[8] == "x":
         return xWin
-    if currentBoard[0] and currentBoard[4] and currentBoard[8] == "o":
+    if currentBoard[0] == "o" and currentBoard[4] == "o" and currentBoard[8] == "o":
         return yWin
     # Checking Diagonal [2]-->[4]-->[8]
-    if currentBoard[0] and currentBoard[4] and currentBoard[8] == "x":
+    if currentBoard[2] == "x" and currentBoard[4] == "x" and currentBoard[6] == "x":
         return xWin
-    if currentBoard[0] and currentBoard[4] and currentBoard[8] == "o":
+    if currentBoard[2] == "o" and currentBoard[4] == "o" and currentBoard[6] == "o":
         return yWin
 
-    return False
 
-
-# AI logic & processing
 def calcNextMove(curBoard):
+    # Check if human Player has won
     winner = checkWinCond(curBoard)
     if winner:
-        print(winner)
-        return True
+        print("Player win: ", winner)
+        return winner
+
+    # AI logic & processing
     else:
+        return True
         xPos = [i for i, e in enumerate(curBoard) if e == "x"]
         print("Current X Pos: ", xPos)
-        return True
+
+        winner = checkWinCond(curBoard)
+        if winner:
+            print("#AI win:", winner)
+            return winner
