@@ -36,7 +36,7 @@ $(document).click(function (e) {
         soundbyte.play()
 
         // Following Player Move, AI makes next move
-        AIturn()
+        CheckWinCond(true)
     }
 })
 
@@ -77,10 +77,11 @@ function AIturn() {
             }
         }
     })
+
     CheckWinCond()
 }
 
-function CheckWinCond() {
+function CheckWinCond(PlayerCall) {
     var curGrid = []
     curGrid = $("#gridContainer").children('#Cell').map(function () {
         return $(this).attr("class");
@@ -110,6 +111,9 @@ function CheckWinCond() {
                 soundbyte.src = "/static/Assets/draw.mp3"
                 soundbyte.play()
                 alert("~ DRAW ~")
+            }
+            if (response == null && PlayerCall == true) {
+                AIturn()
             }
         }
     })

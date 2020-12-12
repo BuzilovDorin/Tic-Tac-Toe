@@ -21,8 +21,6 @@ def checkWinCond(currentBoard):
     yWin = "yWin"
     draw = "draw"
     index = 0
-    if "none" not in currentBoard:
-        return draw
     for row in currentBoard[::3]:
         if row == "x":
             if currentBoard[index + 1] == "x" and currentBoard[index + 2] == "x":
@@ -51,9 +49,11 @@ def checkWinCond(currentBoard):
         return xWin
     if currentBoard[2] == "o" and currentBoard[4] == "o" and currentBoard[6] == "o":
         return yWin
+    if "none" not in currentBoard:
+        return draw
 
 
-def calcNextMove(maxOrMin, curBoard, MaxMin):
+def calcNextMove(curBoard, depth, MaxMin):
     # next AI Move
     bestScore = -math.inf
     nextMove = 0
@@ -61,22 +61,20 @@ def calcNextMove(maxOrMin, curBoard, MaxMin):
     for n in curBoard:
         if n == "none":
             curBoard[i] = "o"
-            mMScore = miniMax(curBoard, 0, MaxMin)
+            mMScore = miniMax(curBoard, 0, True)
             curBoard[i] = "none"
             if mMScore > bestScore:
                 bestScore = mMScore
                 nextMove = i
-                print("iiii::::", i)
             i += 1
         else:
             i += 1
-            pass
     return nextMove
 
 
 scores = {
-    "xWin": 1,
-    "yWin": -1,
+    "xWin": 10,
+    "yWin": -10,
     "draw": 0
 }
 
@@ -86,7 +84,6 @@ def miniMax(currBoard, depth, MinOrMax):
     # Check if AI has won
     result = checkWinCond(currBoard)
     if result != None:
-        print("....", scores[result])
         return scores[result]
 
     if MinOrMax == True:
@@ -95,7 +92,7 @@ def miniMax(currBoard, depth, MinOrMax):
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "o"
-                score = miniMax(currBoard, depth + 1, not MinOrMax)
+                score = miniMax(currBoard, depth + 1, False)
                 currBoard[i] = "none"
                 bestScore = max(score, bestScore)
             i += 1
@@ -106,7 +103,7 @@ def miniMax(currBoard, depth, MinOrMax):
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "x"
-                score = miniMax(currBoard, depth + 1, not MinOrMax)
+                score = miniMax(currBoard, depth + 1, True)
                 currBoard[i] = "none"
                 bestScore = min(score, bestScore)
             i += 1
