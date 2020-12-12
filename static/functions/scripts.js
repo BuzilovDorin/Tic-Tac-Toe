@@ -53,6 +53,7 @@ function passCoinToss(Value) {
             }
             else {
                 $('#cfResult').addClass('lose').append('You lost the coin toss!')
+                AIturn()
             }
         }
     })
@@ -68,6 +69,27 @@ function AIturn() {
         url: "/AITurn",
         type: "POST",
         async: false,
+        contentType: "application/json",
+        data: arr,
+        success: function (response) {
+            if (response == "0" || "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8") {
+                $("#gridContainer").children('#Cell').eq(response).removeClass().addClass("o").append("o")
+            }
+        }
+    })
+    CheckWinCond()
+}
+
+function CheckWinCond() {
+    var curGrid = []
+    curGrid = $("#gridContainer").children('#Cell').map(function () {
+        return $(this).attr("class");
+    });
+    arr = JSON.stringify(curGrid)
+    $.ajax({
+        url: "/winCond",
+        type: "POST",
+        async: true,
         contentType: "application/json",
         data: arr,
         success: function (response) {
@@ -88,9 +110,6 @@ function AIturn() {
                 soundbyte.src = "/static/Assets/draw.mp3"
                 soundbyte.play()
                 alert("~ DRAW ~")
-            }
-            if (response == "0" || "1" || "2" || "3" || "4" || "5" || "6" || "7" || "8") {
-                $("#gridContainer").children('#Cell').eq(response).removeClass().addClass("o").append("o")
             }
         }
     })

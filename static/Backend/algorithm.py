@@ -54,31 +54,21 @@ def checkWinCond(currentBoard):
 
 
 def calcNextMove(maxOrMin, curBoard):
-    # Check if human Player has won
-    winner = checkWinCond(curBoard)
-    if winner:
-        return winner
-
-    else:
-        # next AI Move
-        bestScore = -math.inf
-        nextMove = None
-        i = 0
-        for n in curBoard:
-            if n == "none":
-                n = "o"
-                mMScore = miniMax(curBoard, 0, True)
-                n = "none"
-                bestScore = max(mMScore, bestScore)
-                nextMove = i
-                i += 1
-            else:
-                i += 1
-                pass
-        print(curBoard)
-    winner = checkWinCond(curBoard)
-    if winner:
-        return winner
+    # next AI Move
+    bestScore = -math.inf
+    nextMove = None
+    i = 0
+    for n in curBoard:
+        if n == "none":
+            n = "o"
+            mMScore = miniMax(curBoard, 0, True)
+            n = "none"
+            bestScore = max(mMScore, bestScore)
+            nextMove = i
+            i += 1
+        else:
+            i += 1
+            pass
     return nextMove
 
 

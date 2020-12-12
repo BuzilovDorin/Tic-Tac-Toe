@@ -44,8 +44,18 @@ def logic():
         currGrid = [*obj.values()][:9]
         # Passing through the current board state to the backend AI logic
         a = calcNextMove(maxMin, currGrid)
-        print("init.py:", a)
         return jsonify(a)
+
+
+# Check if win condition satisfied afer AI has made its move
+@app.route("/winCond", methods=["POST"])
+def winCon():
+    if request.method == "POST":
+        decodedData = (request.data).decode('utf-8')
+        obj = json.loads(decodedData)
+        curGrid = [*obj.values()][:9]
+        wCon = checkWinCond(curGrid)
+        return jsonify(wCon)
 
 
 if __name__ == "__main__":
