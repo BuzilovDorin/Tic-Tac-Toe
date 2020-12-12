@@ -88,28 +88,25 @@ def miniMax(currBoard, depth, MinOrMax):
     if result != None:
         return scores[result]
 
-    if MinOrMax == True:
+    if MinOrMax:
         MinOrMax = not MinOrMax
         bestScore = -math.inf
         i = 0
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "o"
-                score = miniMax(currBoard, depth + 1, MinOrMax)
+                score = miniMax(currBoard, depth + 1, False)
                 currBoard[i] = "none"
                 bestScore = max(score, bestScore)
             i += 1
         return bestScore
     else:
-        print(MinOrMax)
-        MinOrMax = not MinOrMax
-        print(MinOrMax)
         bestScore = math.inf
         i = 0
         for n in currBoard:
             if n == "none":
                 currBoard[i] = "x"
-                score = miniMax(currBoard, depth + 1, MinOrMax)
+                score = miniMax(currBoard, depth + 1, True)
                 currBoard[i] = "none"
                 bestScore = min(score, bestScore)
             i += 1
