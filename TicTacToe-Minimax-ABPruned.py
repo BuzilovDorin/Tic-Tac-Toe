@@ -1,10 +1,10 @@
 import math
 import random
+import nashpy
+import numpy
 
 startBoard = ["none", "none", "none", "none",
               "none", "none", "none", "none", "none"]
-
-cpuChecks = 0
 
 
 def printboard(board):
@@ -60,10 +60,8 @@ def AiTurn(board):
     for i in range(9):
         if board[i] == "none":
             board[i] = "o"
-            score = miniMax(board, 0, False)
+            score = miniMax(board, -2, 2, False)
             board[i] = "none"
-            print("Score:", score, bestScore)
-            print("BM:", bestMove)
             if score > bestScore:
                 bestScore = score
                 bestMove = i
@@ -86,10 +84,10 @@ def AiTurn(board):
     PlayerTurn(board)
 
 
-def miniMax(board, depth, isMax):
-    global cpuChecks
-    cpuChecks += 1
-    print(cpuChecks)
+# Alpha & Beta Pruning is applied to reduce number of computations the computer needs to perform
+# Alpha is best option already explored for Max Player
+# Beta is best option already explored for Min Player
+def miniMax(board, alpha, beta, isMax):
     result = checkWin(board)
     if result != None:
         return result
@@ -99,18 +97,30 @@ def miniMax(board, depth, isMax):
         for i in range(9):
             if board[i] == "none":
                 board[i] = "o"
-                score = miniMax(board, depth + 1, False)
+                score = miniMax(board, alpha, beta, False)
                 board[i] = "none"
                 bestScore = max(score, bestScore)
+
+                if bestScore >= beta:
+                    return(bestScore)
+
+                if bestScore > alpha:
+                    alpha = bestScore
         return bestScore
     else:
         bestScore = math.inf
         for i in range(9):
             if board[i] == "none":
                 board[i] = "x"
-                score = miniMax(board, depth + 1, True)
+                score = miniMax(board, alpha, beta, True)
                 board[i] = "none"
                 bestScore = min(score, bestScore)
+
+                if bestScore <= alpha:
+                    return(bestScore)
+
+                if bestScore < beta:
+                    beta = bestScore
         return bestScore
 
 
