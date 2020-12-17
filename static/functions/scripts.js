@@ -94,19 +94,20 @@ function CheckWinCond(PlayerCall) {
         contentType: "application/json",
         data: arr,
         success: function (response) {
-            if (response == "yWin") {
+            console.log(response)
+            if (response == 1) {
                 var soundbyte = document.createElement("audio")
                 soundbyte.src = "/static/Assets/lose.mp3"
                 soundbyte.play()
                 alert("# AI Has WON!!! #")
             }
-            if (response == "xWin") {
+            if (response == -1) {
                 var soundbyte = document.createElement("audio")
                 soundbyte.src = "/static/Assets/win.mp3"
                 soundbyte.play()
                 alert("$ You Have WON!!! $")
             }
-            if (response == "draw") {
+            if (response == 0) {
                 var soundbyte = document.createElement("audio")
                 soundbyte.src = "/static/Assets/draw.mp3"
                 soundbyte.play()

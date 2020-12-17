@@ -1,7 +1,5 @@
 import math
 import random
-import nashpy
-import numpy
 
 startBoard = ["none", "none", "none", "none",
               "none", "none", "none", "none", "none"]

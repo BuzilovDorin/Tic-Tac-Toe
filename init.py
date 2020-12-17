@@ -1,7 +1,7 @@
 # Using flask for simple webhook initialization in order to run our webpage.
 # Not necessary to use django as much of what django can do, flask can do in a more lightweight way
 from flask import Flask, redirect, url_for, render_template, request, jsonify
-from static.Backend.algorithm import coinToss, calcNextMove, checkWinCond
+from static.Backend.algorithm import coinToss, AiTurn, checkWin
 from flask_cors import CORS, cross_origin
 import os
 import json
@@ -43,9 +43,7 @@ def logic():
         obj = json.loads(decodedData)
         currGrid = [*obj.values()][:9]
         # Passing through the current board state to the backend AI logic
-        print(maxMin)
-        a = calcNextMove(currGrid, 0, maxMin)
-        print("next move:", a)
+        a = AiTurn(currGrid)
         return jsonify(a)
 
 
@@ -56,7 +54,7 @@ def winCon():
         decodedData = (request.data).decode('utf-8')
         obj = json.loads(decodedData)
         curGrid = [*obj.values()][:9]
-        wCon = checkWinCond(curGrid)
+        wCon = checkWin(curGrid)
         return jsonify(wCon)
 
 

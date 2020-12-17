@@ -13,101 +13,90 @@ def coinToss(Value):
 
 
 # Check to see if there is a win condition satisfied
-def checkWinCond(currentBoard):
-    # There is 8 possible checks for 3 in a row: 3 rows, 3 columns, 2 diagonal possibilities
-    # Since I am using a 1 dimentional array I need to iterate through the values in jumps of 3
-    # Checking rows
-    xWin = "xWin"
-    yWin = "yWin"
-    draw = "draw"
-    index = 0
-    for row in currentBoard[::3]:
-        if currentBoard[index] == "x" and currentBoard[index] == currentBoard[index + 1] and currentBoard[index + 1] == currentBoard[index + 2]:
-            return xWin
-        elif currentBoard[index] == "o" and currentBoard[index] == currentBoard[index + 1] and currentBoard[index + 1] == currentBoard[index + 2]:
-            return yWin
-        index += 3
-    # Checking Columns
-    index = 0
-    for colm in currentBoard[:3]:
-        if currentBoard[index] == "x" and currentBoard[index] == currentBoard[index + 3] and currentBoard[index + 3] == currentBoard[index + 6]:
-            return xWin
-        if currentBoard[index] == "o" and currentBoard[index] == currentBoard[index + 3] and currentBoard[index + 3] == currentBoard[index + 6]:
-            return yWin
-        index += 1
-    # Checking Diagonal [0]-->[4]-->[8]
-    if currentBoard[0] == "x" and currentBoard[4] == "x" and currentBoard[8] == "x":
-        return xWin
-    if currentBoard[0] == "o" and currentBoard[4] == "o" and currentBoard[8] == "o":
-        return yWin
-    # Checking Diagonal [2]-->[4]-->[6]
-    if currentBoard[2] == "x" and currentBoard[4] == "x" and currentBoard[6] == "x":
-        return xWin
-    if currentBoard[2] == "o" and currentBoard[4] == "o" and currentBoard[6] == "o":
-        return yWin
-    if "none" not in currentBoard:
-        return draw
+def checkWin(board):
+    # 1 = AI
+    # -1 = Player
+    # 0 = draw
+    row = 0
+    for i in range(3):
+        # Checking Columns
+        if board[i] == board[i + 3] and board[i + 3] == board[i + 6]:
+            if board[i] == "x":
+                return -1
+            if board[i] == "o":
+                return 1
+        # Checking Rows
+        if board[row] == board[row + 1] and board[row + 1] == board[row + 2]:
+            if board[row] == "x":
+                return -1
+            if board[row] == "o":
+                return 1
+        row += 3
+    # Checking Diagonal
+    if board[0] == board[4] and board[4] == board[8]:
+        if board[0] == "x":
+            return -1
+        if board[0] == "o":
+            return 1
+    if board[2] == board[4] and board[4] == board[6]:
+        if board[2] == "x":
+            return -1
+        if board[2] == "o":
+            return 1
+    # Checking Draw
+    if "none" not in board:
+        return 0
     else:
         return None
 
 
-def calcNextMove(curBoard, depth, MaxMin):
-    # next AI Move
+def AiTurn(board):
     bestScore = -math.inf
-    nextMove = 0
-    i = 0
-    for n in curBoard:
-        if n == "none":
-            curBoard[i] = "o"
-            mMScore = miniMax(curBoard, depth, MaxMin)
-            print("Depth:", depth, "[Nth Number:]", i, "___", mMScore)
-            curBoard[i] = "none"
-            if mMScore > bestScore:
-                bestScore = mMScore
-                nextMove = i
-            i += 1
-        else:
-            i += 1
-            print("skipped")
-    return nextMove
-
-
-scores = {
-    "xWin": 1,
-    "yWin": -1,
-    "draw": 0
-}
+    bestMove = None
+    for i in range(9):
+        if board[i] == "none":
+            board[i] = "o"
+            score = miniMax(board, -2, 2, False)
+            board[i] = "none"
+            if score > bestScore:
+                bestScore = score
+                bestMove = i
+    return bestMove
 
 
 # miniMax Algorithm
-def miniMax(currBoard, depth, MinOrMax):
-    # if(depth <= 1):
-    #     print(currBoard)
-    # Check if AI has won
-    result = checkWinCond(currBoard)
+def miniMax(board, alpha, beta, isMax):
+    result = checkWin(board)
     if result != None:
-        return scores[result]
+        return result
 
-    if MinOrMax:
-        MinOrMax = not MinOrMax
+    if isMax:
         bestScore = -math.inf
-        i = 0
-        for n in currBoard:
-            if n == "none":
-                currBoard[i] = "o"
-                score = miniMax(currBoard, depth + 1, False)
-                currBoard[i] = "none"
+        for i in range(9):
+            if board[i] == "none":
+                board[i] = "o"
+                score = miniMax(board, alpha, beta, False)
+                board[i] = "none"
                 bestScore = max(score, bestScore)
-            i += 1
+
+                if bestScore >= beta:
+                    return(bestScore)
+
+                if bestScore > alpha:
+                    alpha = bestScore
         return bestScore
     else:
         bestScore = math.inf
-        i = 0
-        for n in currBoard:
-            if n == "none":
-                currBoard[i] = "x"
-                score = miniMax(currBoard, depth + 1, True)
-                currBoard[i] = "none"
+        for i in range(9):
+            if board[i] == "none":
+                board[i] = "x"
+                score = miniMax(board, alpha, beta, True)
+                board[i] = "none"
                 bestScore = min(score, bestScore)
-            i += 1
+
+                if bestScore <= alpha:
+                    return(bestScore)
+
+                if bestScore < beta:
+                    beta = bestScore
         return bestScore
